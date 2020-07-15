@@ -29,6 +29,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * ThreadPoolStatusChecker
+ * 线程池监控
  */
 @Activate
 public class ThreadPoolStatusChecker implements StatusChecker {

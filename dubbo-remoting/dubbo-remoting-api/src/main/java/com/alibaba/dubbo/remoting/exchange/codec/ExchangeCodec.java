@@ -221,7 +221,7 @@ public class ExchangeCodec extends TelnetCodec {
         if (req.isTwoWay()) header[2] |= FLAG_TWOWAY;
         if (req.isEvent()) header[2] |= FLAG_EVENT;
 
-        // set request id.
+        // set request id. 请求唯一标识
         Bytes.long2bytes(req.getId(), header, 4);
 
         // encode request data.
@@ -241,6 +241,7 @@ public class ExchangeCodec extends TelnetCodec {
         bos.flush();
         bos.close();
         int len = bos.writtenBytes();
+        //检查编码后的报文是否超过大小限制，默认是8MB
         checkPayload(channel, len);
         Bytes.int2bytes(len, header, 12);
 

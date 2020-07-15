@@ -263,6 +263,7 @@ public class DubboProtocol extends AbstractProtocol {
         if (isServer) {
             ExchangeServer server = serverMap.get(key);
             if (server == null) {
+                //服务初次暴露会创建监听器
                 serverMap.put(key, createServer(url));
             } else {
                 // server supports reset, use together with override
