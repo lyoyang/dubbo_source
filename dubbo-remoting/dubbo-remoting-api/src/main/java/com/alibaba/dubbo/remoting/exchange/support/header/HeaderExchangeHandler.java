@@ -167,9 +167,11 @@ public class HeaderExchangeHandler implements ChannelHandlerDelegate {
                 // handle request.
                 Request request = (Request) message;
                 if (request.isEvent()) {
+                    //处理readonly事件
                     handlerEvent(channel, request);
                 } else {
                     if (request.isTwoWay()) {
+                        //处理方法调用并返回给客户端
                         Response response = handleRequest(exchangeChannel, request);
                         channel.send(response);
                     } else {
@@ -177,8 +179,10 @@ public class HeaderExchangeHandler implements ChannelHandlerDelegate {
                     }
                 }
             } else if (message instanceof Response) {
+                //接收响应
                 handleResponse(channel, (Response) message);
             } else if (message instanceof String) {
+                //客户端是否支持telnet调用
                 if (isClientSide(channel)) {
                     Exception e = new Exception("Dubbo client can not supported string message: " + message + " in channel: " + channel + ", url: " + channel.getUrl());
                     logger.error(e.getMessage(), e);
